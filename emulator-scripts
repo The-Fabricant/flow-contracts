@@ -1,0 +1,7 @@
+#SCRIPTS
+flow scripts execute ./cadence/scripts/is_account_initialized.cdc --arg Address:0xf8d6e0586b0a20c7
+
+#fabricant
+flow scripts execute ./cadence/scripts/thefabricantmysterybox_ff1/get_fabricant_collection_length.cdc --arg Address:0xf8d6e0586b0a20c7 
+flow scripts execute ./cadence/scripts/thefabricantmysterybox_ff1/get_fabricant_datas.cdc
+flow scripts execute ./cadence/scripts/thefabricantmysterybox_ff1/get_fabricant_royalty_percentage.cdc
