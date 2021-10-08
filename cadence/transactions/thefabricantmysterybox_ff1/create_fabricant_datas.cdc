@@ -12,8 +12,8 @@ transaction() {
     }
 
     execute {
-        let mainImage1: String = "hi"
-        let mainImage2: String = "hi2"
+        let mainImage1: String = "https://leela.mypinata.cloud/ipfs/QmSuQtHY4Rn2beo63M6jnpv6kDGvs48gnVEiBtcfDLYZxz/TheFabricant_Pluriform_DowntoEarth.png"
+        let mainImage2: String = "https://leela.mypinata.cloud/ipfs/QmSuQtHY4Rn2beo63M6jnpv6kDGvs48gnVEiBtcfDLYZxz/TheFabricant_Pluriform_SlumpySnow.png"
         // Create a fabricantData with specified variables
         self.adminRef.createFabricantData(mainImage: mainImage1)
         self.adminRef.createFabricantData(mainImage: mainImage2)
