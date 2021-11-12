@@ -28,7 +28,8 @@
 					"testnet": "0x631e88ae7f1d7c20"
 				}	
 		},
-		"TheFabricantMysteryBox_FF1": "./cadence/contracts/TheFabricantMysteryBox_FF1.cdc"
+		"TheFabricantMysteryBox_FF1": "./cadence/contracts/TheFabricantMysteryBox_FF1.cdc",
+		"DieselNFT": "./cadence/contracts/DieselNFT.cdc"
   	},
 	"networks": {
 		"emulator": "127.0.0.1:3569",
@@ -48,11 +49,11 @@
 	"deployments": {
 		"testnet": {
       		"testnet-account": 
-				["TheFabricantMysteryBox_FF1"]
+				["DieselNFT"]
     	},
 		"emulator": {
 			"emulator-account": 
-				["NonFungibleToken", "TheFabricantMysteryBox_FF1"]
+				["NonFungibleToken", "DieselNFT"]
    		 }
 	}
 }
