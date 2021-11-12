@@ -1,16 +1,16 @@
   import FungibleToken from "../contracts/FungibleToken.cdc"
   import NonFungibleToken from "../contracts/NonFungibleToken.cdc"
-  import TheFabricantMysteryBox_FF1 from "../contracts/TheFabricantMysteryBox_FF1.cdc"
+  import DieselNFT from "../contracts/DieselNFT.cdc"
 
-  pub fun hasFabricantNFT(_ address: Address): Bool {
+  pub fun hasDieselNFT(_ address: Address): Bool {
     return getAccount(address)
-      .getCapability<&{TheFabricantMysteryBox_FF1.FabricantCollectionPublic}>(TheFabricantMysteryBox_FF1.CollectionPublicPath)
+      .getCapability<&{DieselNFT.DieselCollectionPublic}>(DieselNFT.CollectionPublicPath)
       .check()
   }
 
 
   pub fun main(address: Address): {String: Bool} {
     let ret: {String: Bool} = {}
-    ret["HasTheFabricantMysteryBox"] = hasFabricantNFT(address)
+    ret["HasDiesel"] = hasDieselNFT(address)
     return ret
   }
