@@ -318,7 +318,7 @@ pub contract DieselNFT: NonFungibleToken {
                 emit Deposit(id: id, to: self.owner?.address)
             }
 
-            // Destroy the empty old token tDiesel was "removed"
+            // Destroy the empty old token that was "removed"
             destroy oldToken
         }
 
@@ -343,7 +343,7 @@ pub contract DieselNFT: NonFungibleToken {
         }
 
         // borrowNFT Returns a borrowed reference to a Diesel in the Collection
-        // so tDiesel the caller can read its ID
+        // so that the caller can read its ID
         //
         // Parameters: id: The ID of the NFT to get the reference for
         //
