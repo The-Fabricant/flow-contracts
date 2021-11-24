@@ -1,6 +1,35 @@
 import MiamiNFT from "../../contracts/MiamiNFT.cdc"
 
-pub fun main(account: Address, id: UInt64): String{
+pub struct MiamiDetails {
+  pub let id: UInt64
+  pub let serialNumber: UInt32
+  pub let numberMintedPerMiamiDataID: UInt32
+  pub let miamiDataID: UInt32
+  pub let name: String
+  pub let description: String
+  pub let mainVideo: String
+
+  init(
+    id: UInt64,
+    serialNumber: UInt32,
+    numberMintedPerMiamiDataID: UInt32,
+    miamiDataID: UInt32,
+    name: String,
+    description: String,
+    mainVideo: String
+  )
+  {
+    self.id = id
+    self.serialNumber = serialNumber
+    self.numberMintedPerMiamiDataID = numberMintedPerMiamiDataID
+    self.miamiDataID = miamiDataID
+    self.name = name
+    self.description = description
+    self.mainVideo = mainVideo
+  }
+}
+
+pub fun main(account: Address, id: UInt64): MiamiDetails {
 
     let acct = getAccount(account)
 
@@ -10,7 +39,15 @@ pub fun main(account: Address, id: UInt64): String{
     let token = miamiCollectionRef.borrowMiami(id: id)!
     let dataID = token.miami.miamiDataID
     let miamiData = MiamiNFT.getMiamiData(id: dataID)
+    let details =  
+    MiamiDetails(
+        serialNumber: token.miami.serialNumber,
+        numberMintedPerMiamiDataID: MiamiNFT.getMiamiNumberMinted(id: dataID),
+        miamiDataID: dataID,
+        name: miamiData.name,
+        description: miamiData.description,
+        mainVideo: miamiData.mainVideo
+    )
 
-    return miamiData.mainVideo
-
+    return details
 }

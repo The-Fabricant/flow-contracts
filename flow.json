@@ -50,11 +50,11 @@
 	"deployments": {
 		"testnet": {
       		"testnet-account": 
-				["DieselNFT", "MiamiNFT"]
+				["TheFabricantMysteryBox_FF1", "DieselNFT", "MiamiNFT"]
     	},
 		"emulator": {
 			"emulator-account": 
-				["NonFungibleToken", "DieselNFT", "MiamiNFT"]
+				["NonFungibleToken", "TheFabricantMysteryBox_FF1", "DieselNFT", "MiamiNFT"]
    		 }
 	}
 }
