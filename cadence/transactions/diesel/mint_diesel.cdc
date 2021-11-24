@@ -25,7 +25,7 @@ transaction(recipientAddr: Address, dieselDataID: UInt32, royaltyVaultAddr: Addr
         // Get the diesel collection capability of the receiver of nft
         let nftReceiver = recipient
             .getCapability(DieselNFT.CollectionPublicPath)
-            .borrow<&{DieselNFT.FabricantCollectionPublic}>()
+            .borrow<&{DieselNFT.DieselCollectionPublic}>()
             ?? panic("Unable to borrow recipient's diesel collection")
 
         // Deposit the diesel

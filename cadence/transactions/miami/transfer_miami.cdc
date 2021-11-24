@@ -1,5 +1,5 @@
 import NonFungibleToken from "../../contracts/NonFungibleToken.cdc"
-import DieselNFT from "../../contracts/DieselNFT.cdc"
+import MiamiNFT from "../../contracts/MiamiNFT.cdc"
 
 transaction(recipient: Address, withdrawID: UInt64) {
     prepare(signer: AuthAccount) {
@@ -8,14 +8,14 @@ transaction(recipient: Address, withdrawID: UInt64) {
         let recipient = getAccount(recipient)
 
         // borrow a reference to the signer's NFT collection
-        let collectionRef = signer.borrow<&DieselNFT.Collection>(from: DieselNFT.CollectionStoragePath)
+        let collectionRef = signer.borrow<&MiamiNFT.Collection>(from: MiamiNFT.CollectionStoragePath)
             ?? panic("Could not borrow a reference to the owner's collection")
 
 
         // Get the hat collection capability of the receiver of nft
         let nftReceiver = recipient
-            .getCapability(DieselNFT.CollectionPublicPath)
-            .borrow<&{DieselNFT.DieselCollectionPublic}>()
+            .getCapability(MiamiNFT.CollectionPublicPath)
+            .borrow<&{MiamiNFT.MiamiCollectionPublic}>()
             ?? panic("Unable to borrow recipient's hat collection")
 
         // withdraw the NFT from the owner's collection
