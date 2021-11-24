@@ -29,25 +29,30 @@ pub struct DieselDetails {
   }
 }
 
-pub fun main(account: Address, id: UInt64): DieselDetails {
+pub fun main(account: Address): [DieselDetails] {
 
     let acct = getAccount(account)
 
     let dieselCollectionRef = acct.getCapability(DieselNFT.CollectionPublicPath)
                             .borrow<&{DieselNFT.DieselCollectionPublic}>()!
 
-    let token = dieselCollectionRef.borrowDiesel(id: id)!
-    let dataID = token.diesel.dieselDataID
-    let dieselData = DieselNFT.getDieselData(id: dataID)
-    let details =  
-    DieselDetails(
-        serialNumber: token.diesel.serialNumber,
-        numberMintedPerDieselDataID: DieselNFT.getDieselNumberMinted(id: dataID),
-        dieselDataID: dataID,
-        name: dieselData.name,
-        description: dieselData.description,
-        mainVideo: dieselData.mainVideo
-    )
-
-    return details
+    var ids = dieselCollectionRef.getIDs();
+    let dict: [DieselDetails] = []
+    for id in ids {
+        let token = dieselCollectionRef.borrowDiesel(id: id)!
+        let dataID = token.diesel.dieselDataID
+        let dieselData = DieselNFT.getDieselData(id: dataID)
+        dict.append(  
+          DieselDetails(
+            id: id,
+            serialNumber: token.diesel.serialNumber,
+            numberMintedPerDieselDataID: DieselNFT.getDieselNumberMinted(id: dataID),
+            dieselDataID: dataID,
+            name: dieselData.name,
+            description: dieselData.description,
+            mainVideo: dieselData.mainVideo
+          )
+        )
+    }
+    return dict
 }
