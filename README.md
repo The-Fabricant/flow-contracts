@@ -12,6 +12,12 @@ Number of NFTs minted: 3000 * 2 unique NFTs
 
 ## Diesel
 
-DieslNFT is an NFT airdropped to 150 individuals
+DieselNFT is an NFT airdropped to 150 individuals
 
-Number of NFTS minted: 150 * 1 unique NFT
+Number of NFTS minted: 64 * 1 unique NFT
+
+## Miami
+
+MiamiNFT is an NFT for the Miami event
+
+Number of NFTS minted: 500 * 2 unique NFTs(Sunglasses/Hat)
