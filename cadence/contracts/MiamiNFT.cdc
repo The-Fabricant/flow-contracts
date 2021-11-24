@@ -1,36 +1,36 @@
 import NonFungibleToken from "./NonFungibleToken.cdc"
 import FungibleToken from "./FungibleToken.cdc"
 
-pub contract DieselNFT: NonFungibleToken {
+pub contract MiamiNFT: NonFungibleToken {
 
     // -----------------------------------------------------------------------
-    // DieselNFT contract Events
+    // MiamiNFT contract Events
     // -----------------------------------------------------------------------
 
-    // Emitted when the Diesel contract is created
+    // Emitted when the Miami contract is created
     pub event ContractInitialized()
 
-    // Emitted when a new DieselData struct is created
-    pub event DieselDataCreated(dieselDataID: UInt32, name: String, description: String, mainVideo: String)
+    // Emitted when a new MiamiData struct is created
+    pub event MiamiDataCreated(miamiDataID: UInt32, name: String, description: String, mainVideo: String, season: String, creator: Address)
 
-    // Emitted when a Diesel is minted
-    pub event DieselMinted(dieselID: UInt64, dieselDataID: UInt32, serialNumber: UInt32)
+    // Emitted when a Miami is minted
+    pub event MiamiMinted(miamiID: UInt64, miamiDataID: UInt32, serialNumber: UInt32)
 
     // Emitted when the contract's royalty percentage is changed
     pub event RoyaltyPercentageChanged(newRoyaltyPercentage: UFix64)
 
-    pub event DieselDataIDRetired(dieselDataID: UInt32)
+    pub event MiamiDataIDRetired(miamiDataID: UInt32)
 
     // Events for Collection-related actions
     //
-    // Emitted when a Diesel is withdrawn from a Collection
+    // Emitted when a Miami is withdrawn from a Collection
     pub event Withdraw(id: UInt64, from: Address?)
 
-    // Emitted when a Diesel is deposited into a Collection
+    // Emitted when a Miami is deposited into a Collection
     pub event Deposit(id: UInt64, to: Address?)
 
-    // Emitted when a Diesel is destroyed
-    pub event DieselDestroyed(id: UInt64)
+    // Emitted when a Miami is destroyed
+    pub event MiamiDestroyed(id: UInt64)
 
     // -----------------------------------------------------------------------
     // contract-level fields.      
@@ -44,126 +44,137 @@ pub contract DieselNFT: NonFungibleToken {
 
     pub let AdminStoragePath: StoragePath
 
-    // Variable size dictionary of Diesel structs
-    access(self) var dieselDatas: {UInt32: DieselData}
+    // Variable size dictionary of Miami structs
+    access(self) var miamiDatas: {UInt32: MiamiData}
 
-    // Dictionary with DieselDataID as key and number of NFTs with DieselDataID are minted
-    access(self) var numberMintedPerDiesel: {UInt32: UInt32}
+    // Dictionary with MiamiDataID as key and number of NFTs with MiamiDataID are minted
+    access(self) var numberMintedPerMiami: {UInt32: UInt32}
 
-    // Dictionary of dieselDataID to  whether they are retired
-    access(self) var isDieselDataRetired: {UInt32: Bool}
+    // Dictionary of miamiDataID to  whether they are retired
+    access(self) var isMiamiDataRetired: {UInt32: Bool}
 
-    // Keeps track of how many unique DieselData's are created
-    pub var nextDieselDataID: UInt32
+    // Keeps track of how many unique MiamiData's are created
+    pub var nextMiamiDataID: UInt32
 
     pub var royaltyPercentage: UFix64
 
     pub var totalSupply: UInt64
 
-    pub struct DieselData {
+    pub struct MiamiData {
 
-        // The unique ID for the Diesel Data
-        pub let dieselDataID: UInt32
+        // The unique ID for the Miami Data
+        pub let miamiDataID: UInt32
 
         pub let name: String
 
-        pub let description: String 
+        pub let description: String  
 
         //stores link to video
         pub let mainVideo: String
 
+        pub let season: String
+
+        pub let creator: Address
+
         init(
             name: String,
             description: String,
-            mainVideo: String
+            mainVideo: String,
+            season: String,
+            creator: Address
         ){
-            self.dieselDataID = DieselNFT.nextDieselDataID
+            self.miamiDataID = MiamiNFT.nextMiamiDataID
             self.name = name
             self.description = description
             self.mainVideo = mainVideo
+            self.season = season
+            self.creator = creator
 
-            DieselNFT.isDieselDataRetired[self.dieselDataID] = false
+            MiamiNFT.isMiamiDataRetired[self.miamiDataID] = false
 
             // Increment the ID so that it isn't used again
-            DieselNFT.nextDieselDataID = DieselNFT.nextDieselDataID + 1 as UInt32
+            MiamiNFT.nextMiamiDataID = MiamiNFT.nextMiamiDataID + 1 as UInt32
 
-            emit DieselDataCreated(dieselDataID: self.dieselDataID, name: self.name, description: self.description, mainVideo: self.mainVideo)
+            emit MiamiDataCreated(miamiDataID: self.miamiDataID, name: self.name, description: self.description, mainVideo: self.mainVideo, season: self.season, creator: self.creator)
         }
     }
     
-    pub struct Diesel {
+    pub struct Miami {
 
-        // The ID of the DieselData that the Diesel references
-        pub let dieselDataID: UInt32
+        // The ID of the MiamiData that the Miami references
+        pub let miamiDataID: UInt32
 
-        // The N'th NFT with 'DieselDataID' minted
+        // The N'th NFT with 'MiamiDataID' minted
         pub let serialNumber: UInt32
 
-        init(dieselDataID: UInt32) {
-            self.dieselDataID = dieselDataID
+        init(miamiDataID: UInt32) {
+            self.miamiDataID = miamiDataID
 
             // Increment the ID so that it isn't used again
-            DieselNFT.numberMintedPerDiesel[dieselDataID] = DieselNFT.numberMintedPerDiesel[dieselDataID]! + 1 as UInt32
+            MiamiNFT.numberMintedPerMiami[miamiDataID] = MiamiNFT.numberMintedPerMiami[miamiDataID]! + 1 as UInt32
 
-            self.serialNumber = DieselNFT.numberMintedPerDiesel[dieselDataID]!
+            self.serialNumber = MiamiNFT.numberMintedPerMiami[miamiDataID]!
         }
     }    
 
 
 
-    // The resource that represents the Diesel NFTs
+    // The resource that represents the Miami NFTs
     //
     pub resource NFT: NonFungibleToken.INFT {
 
-        // Global unique Diesel ID
+        // Global unique Miami ID
         pub let id: UInt64
 
-        // struct of Diesel
-        pub let diesel: Diesel
+        // struct of Miami
+        pub let miami: Miami
 
         // Royalty capability which NFT will use
         pub let royaltyVault: Capability<&{FungibleToken.Receiver}> 
 
 
-        init(serialNumber: UInt32, dieselDataID: UInt32, royaltyVault: Capability<&{FungibleToken.Receiver}> ) {
-            DieselNFT.totalSupply = DieselNFT.totalSupply + 1 as UInt64
+        init(serialNumber: UInt32, miamiDataID: UInt32, royaltyVault: Capability<&{FungibleToken.Receiver}> ) {
+            MiamiNFT.totalSupply = MiamiNFT.totalSupply + 1 as UInt64
             
-            self.id = DieselNFT.totalSupply
+            self.id = MiamiNFT.totalSupply
 
-            self.diesel = Diesel(dieselDataID: dieselDataID)
+            self.miami = Miami(miamiDataID: miamiDataID)
 
             self.royaltyVault = royaltyVault          
 
-            // Emitted when a Diesel is minted
-            emit DieselMinted(dieselID: self.id, dieselDataID: dieselDataID, serialNumber: serialNumber)
+            // Emitted when a Miami is minted
+            emit MiamiMinted(miamiID: self.id, miamiDataID: miamiDataID, serialNumber: serialNumber)
         }
 
         destroy() {
-            emit DieselDestroyed(id: self.id)
+            emit MiamiDestroyed(id: self.id)
         }
 
     }
 
     // Admin is a special authorization resource that
     // allows the owner to perform important functions to modify the 
-    // various aspects of the Diesel and NFTs
+    // various aspects of the Miami and NFTs
     //
     pub resource Admin {
 
-        pub fun createDieselData(name: String, description: String, mainVideo: String): UInt32 {
-            // Create the new DieselData
-            var newDiesel = DieselData(
+        pub fun createMiamiData(name: String, description: String, mainVideo: String, season: String, creator: Address): UInt32 {
+            // Create the new MiamiData
+            var newMiami = MiamiData(
                 name: name,
                 description: description,
-                mainVideo: mainVideo
+                mainVideo: mainVideo,
+                season: season,
+                creator: creator
+                
             )
 
-            let newID = newDiesel.dieselDataID
+            let newID = newMiami.miamiDataID
 
             // Store it in the contract storage
-            DieselNFT.dieselDatas[newID] = newDiesel
+            MiamiNFT.miamiDatas[newID] = newMiami
 
-            DieselNFT.numberMintedPerDiesel[newID] = 0 as UInt32
+            MiamiNFT.numberMintedPerMiami[newID] = 0 as UInt32
 
             return newID
         }
@@ -174,35 +185,35 @@ pub contract DieselNFT: NonFungibleToken {
             return <-create Admin()
         }
 
-        // Mint the new Diesel
-        pub fun mintNFT(dieselDataID: UInt32, royaltyVault: Capability<&{FungibleToken.Receiver}> ): @NFT {
+        // Mint the new Miami
+        pub fun mintNFT(miamiDataID: UInt32, royaltyVault: Capability<&{FungibleToken.Receiver}> ): @NFT {
             pre {
                 royaltyVault.check():
                     "Royalty capability is invalid!"
             }
 
-            if (DieselNFT.isDieselDataRetired[dieselDataID]! == nil) {
-                panic("Cannot mint Diesel. dieselData not found")
+            if (MiamiNFT.isMiamiDataRetired[miamiDataID]! == nil) {
+                panic("Cannot mint Miami. miamiData not found")
             }
 
-            if (DieselNFT.isDieselDataRetired[dieselDataID]!) {
-                panic("Cannot mint diesel. dieselDataID retired")
+            if (MiamiNFT.isMiamiDataRetired[miamiDataID]!) {
+                panic("Cannot mint miami. miamiDataID retired")
             }
 
-            let numInDiesel = DieselNFT.numberMintedPerDiesel[dieselDataID]??
-                panic("Cannot mint Diesel. dieselData not found")
+            let numInMiami = MiamiNFT.numberMintedPerMiami[miamiDataID]??
+                panic("Cannot mint Miami. miamiData not found")
 
-            let newDiesel: @NFT <- create NFT(serialNumber: numInDiesel + 1, dieselDataID: dieselDataID, royaltyVault: royaltyVault)
+            let newMiami: @NFT <- create NFT(serialNumber: numInMiami + 1, miamiDataID: miamiDataID, royaltyVault: royaltyVault)
 
-            return <-newDiesel
+            return <-newMiami
         }
 
-        pub fun batchMintNFT(dieselDataID: UInt32, royaltyVault: Capability<&{FungibleToken.Receiver}> , quantity: UInt64): @Collection {
+        pub fun batchMintNFT(miamiDataID: UInt32, royaltyVault: Capability<&{FungibleToken.Receiver}> , quantity: UInt64): @Collection {
             let newCollection <- create Collection()
 
             var i: UInt64 = 0
             while i < quantity {
-                newCollection.deposit(token: <-self.mintNFT(dieselDataID: dieselDataID, royaltyVault: royaltyVault))
+                newCollection.deposit(token: <-self.mintNFT(miamiDataID: miamiDataID, royaltyVault: royaltyVault))
                 i = i + 1 as UInt64
             }
 
@@ -211,39 +222,39 @@ pub contract DieselNFT: NonFungibleToken {
 
         // Change the royalty percentage of the contract
         pub fun changeRoyaltyPercentage(newRoyaltyPercentage: UFix64) {
-            DieselNFT.royaltyPercentage = newRoyaltyPercentage
+            MiamiNFT.royaltyPercentage = newRoyaltyPercentage
             
             emit RoyaltyPercentageChanged(newRoyaltyPercentage: newRoyaltyPercentage)
         }
 
-        // Retire dieselData so that it cannot be used to mint anymore
-        pub fun retireDieselData(dieselDataID: UInt32) {           
+        // Retire miamiData so that it cannot be used to mint anymore
+        pub fun retireMiamiData(miamiDataID: UInt32) {           
             pre {
-                DieselNFT.isDieselDataRetired[dieselDataID] != nil: "Cannot retire Diesel: Diesel doesn't exist!"
+                MiamiNFT.isMiamiDataRetired[miamiDataID] != nil: "Cannot retire Miami: Miami doesn't exist!"
             }
 
-            if !DieselNFT.isDieselDataRetired[dieselDataID]! {
-                DieselNFT.isDieselDataRetired[dieselDataID] = true
+            if !MiamiNFT.isMiamiDataRetired[miamiDataID]! {
+                MiamiNFT.isMiamiDataRetired[miamiDataID] = true
 
-                emit DieselDataIDRetired(dieselDataID: dieselDataID)
+                emit MiamiDataIDRetired(miamiDataID: miamiDataID)
             }
         }
     }
 
-    // This is the interface users can cast their Diesel Collection as
+    // This is the interface users can cast their Miami Collection as
     // to allow others to deposit into their Collection. It also allows for reading
-    // the IDs of Diesel in the Collection.
-    pub resource interface DieselCollectionPublic {
+    // the IDs of Miami in the Collection.
+    pub resource interface MiamiCollectionPublic {
         pub fun deposit(token: @NonFungibleToken.NFT)
         pub fun batchDeposit(tokens: @NonFungibleToken.Collection)
         pub fun getIDs(): [UInt64]
         pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT
-        pub fun borrowDiesel(id: UInt64): &DieselNFT.NFT? {
+        pub fun borrowMiami(id: UInt64): &MiamiNFT.NFT? {
             // If the result isn't nil, the id of the returned reference
             // should be the same as the argument to the function
             post {
                 (result == nil) || (result?.id == id): 
-                    "Cannot borrow Diesel reference: The ID of the returned reference is incorrect"
+                    "Cannot borrow Miami reference: The ID of the returned reference is incorrect"
             }
         }
     }
@@ -251,8 +262,8 @@ pub contract DieselNFT: NonFungibleToken {
     // Collection is a resource that every user who owns NFTs 
     // will store in their account to manage their NFTS
     //
-    pub resource Collection: DieselCollectionPublic, NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic { 
-        // Dictionary of Diesel conforming tokens
+    pub resource Collection: MiamiCollectionPublic, NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic { 
+        // Dictionary of Miami conforming tokens
         // NFT is a resource type with a UInt64 ID field
         pub var ownedNFTs: @{UInt64: NonFungibleToken.NFT}
 
@@ -260,7 +271,7 @@ pub contract DieselNFT: NonFungibleToken {
             self.ownedNFTs <- {}
         }
 
-        // withdraw removes an Diesel from the Collection and moves it to the caller
+        // withdraw removes an Miami from the Collection and moves it to the caller
         //
         // Parameters: withdrawID: The ID of the NFT 
         // that is to be removed from the Collection
@@ -269,7 +280,7 @@ pub contract DieselNFT: NonFungibleToken {
         pub fun withdraw(withdrawID: UInt64): @NonFungibleToken.NFT {
             // Remove the nft from the Collection
             let token <- self.ownedNFTs.remove(key: withdrawID) 
-                ?? panic("Cannot withdraw: Diesel does not exist in the collection")
+                ?? panic("Cannot withdraw: Miami does not exist in the collection")
 
             emit Withdraw(id: token.id, from: self.owner?.address)
             
@@ -282,7 +293,7 @@ pub contract DieselNFT: NonFungibleToken {
         // Parameters: ids: An array of IDs to withdraw
         //
         // Returns: @NonFungibleToken.Collection: A collection that contains
-        //                                        the withdrawn Diesel
+        //                                        the withdrawn Miami
         //
         pub fun batchWithdraw(ids: [UInt64]): @NonFungibleToken.Collection {
             // Create a new empty Collection
@@ -297,14 +308,14 @@ pub contract DieselNFT: NonFungibleToken {
             return <-batchCollection
         }
 
-        // deposit takes a Diesel and adds it to the Collections dictionary
+        // deposit takes a Miami and adds it to the Collections dictionary
         //
         // Parameters: token: the NFT to be deposited in the collection
         //
         pub fun deposit(token: @NonFungibleToken.NFT) {
             // Cast the deposited token as NFT to make sure
             // it is the correct type
-            let token <- token as! @DieselNFT.NFT
+            let token <- token as! @MiamiNFT.NFT
 
             // Get the token's ID
             let id = token.id
@@ -342,7 +353,7 @@ pub contract DieselNFT: NonFungibleToken {
             return self.ownedNFTs.keys
         }
 
-        // borrowNFT Returns a borrowed reference to a Diesel in the Collection
+        // borrowNFT Returns a borrowed reference to a Miami in the Collection
         // so that the caller can read its ID
         //
         // Parameters: id: The ID of the NFT to get the reference for
@@ -350,8 +361,8 @@ pub contract DieselNFT: NonFungibleToken {
         // Returns: A reference to the NFT
         //
         // Note: This only allows the caller to read the ID of the NFT,
-        // not an specific data. Please use borrowDiesel to 
-        // read Diesel data.
+        // not an specific data. Please use borrowMiami to 
+        // read Miami data.
         //
         pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT {
             return &self.ownedNFTs[id] as &NonFungibleToken.NFT
@@ -360,10 +371,10 @@ pub contract DieselNFT: NonFungibleToken {
         // Parameters: id: The ID of the NFT to get the reference for
         //
         // Returns: A reference to the NFT
-        pub fun borrowDiesel(id: UInt64): &DieselNFT.NFT? {
+        pub fun borrowMiami(id: UInt64): &MiamiNFT.NFT? {
             if self.ownedNFTs[id] != nil {
                 let ref = &self.ownedNFTs[id] as auth &NonFungibleToken.NFT
-                return ref as! &DieselNFT.NFT
+                return ref as! &MiamiNFT.NFT
             } else {
                 return nil
             }
@@ -378,50 +389,50 @@ pub contract DieselNFT: NonFungibleToken {
     }
 
     // -----------------------------------------------------------------------
-    // Diesel contract-level function definitions
+    // Miami contract-level function definitions
     // -----------------------------------------------------------------------
 
     // createEmptyCollection creates a new, empty Collection object so that
     // a user can store it in their account storage.
     // Once they have a Collection in their storage, they are able to receive
-    // Diesel in transactions.
+    // Miami in transactions.
     //
     pub fun createEmptyCollection(): @NonFungibleToken.Collection {
-        return <-create DieselNFT.Collection()
+        return <-create MiamiNFT.Collection()
     }
 
-    // get dictionary of numberMintedPerDiesel
-    pub fun getNumberMintedPerDiesel(): {UInt32: UInt32} {
-        return DieselNFT.numberMintedPerDiesel
+    // get dictionary of numberMintedPerMiami
+    pub fun getNumberMintedPerMiami(): {UInt32: UInt32} {
+        return MiamiNFT.numberMintedPerMiami
     }
 
-    // get how many Diesels with dieselDataID are minted 
-    pub fun getDieselNumberMinted(id: UInt32): UInt32 {
-        let numberMinted = DieselNFT.numberMintedPerDiesel[id]??
-            panic("dieselDataID not found")
+    // get how many Miamis with miamiDataID are minted 
+    pub fun getMiamiNumberMinted(id: UInt32): UInt32 {
+        let numberMinted = MiamiNFT.numberMintedPerMiami[id]??
+            panic("miamiDataID not found")
         return numberMinted
     }
 
-    // get the dieselData of a specific id
-    pub fun getDieselData(id: UInt32): DieselData {
-        let dieselData = DieselNFT.dieselDatas[id]??
-            panic("dieselDataID not found")
-        return dieselData
+    // get the miamiData of a specific id
+    pub fun getMiamiData(id: UInt32): MiamiData {
+        let miamiData = MiamiNFT.miamiDatas[id]??
+            panic("miamiDataID not found")
+        return miamiData
     }
 
-    // get all dieselDatas created
-    pub fun getDieselDatas(): {UInt32: DieselData} {
-        return DieselNFT.dieselDatas
+    // get all miamiDatas created
+    pub fun getMiamiDatas(): {UInt32: MiamiData} {
+        return MiamiNFT.miamiDatas
     }
 
-    pub fun getDieselDatasRetired(): {UInt32: Bool} { 
-        return DieselNFT.isDieselDataRetired
+    pub fun getMiamiDatasRetired(): {UInt32: Bool} { 
+        return MiamiNFT.isMiamiDataRetired
     }
 
-    pub fun getDieselDataRetired(dieselDataID: UInt32): Bool { 
-        let isDieselDataRetired = DieselNFT.isDieselDataRetired[dieselDataID]??
-            panic("dieselDataID not found")
-        return isDieselDataRetired
+    pub fun getMiamiDataRetired(miamiDataID: UInt32): Bool { 
+        let isMiamiDataRetired = MiamiNFT.isMiamiDataRetired[miamiDataID]??
+            panic("miamiDataID not found")
+        return isMiamiDataRetired
     }
 
     // -----------------------------------------------------------------------
@@ -430,21 +441,21 @@ pub contract DieselNFT: NonFungibleToken {
     //
     init() {
         // Initialize contract fields
-        self.dieselDatas = {}
-        self.numberMintedPerDiesel = {}
-        self.nextDieselDataID = 1
+        self.miamiDatas = {}
+        self.numberMintedPerMiami = {}
+        self.nextMiamiDataID = 1
         self.royaltyPercentage = 0.10
-        self.isDieselDataRetired = {}
+        self.isMiamiDataRetired = {}
         self.totalSupply = 0
-        self.CollectionPublicPath = /public/DieselCollection001
-        self.CollectionStoragePath = /storage/DieselCollection001
-        self.AdminStoragePath = /storage/DieselAdmin001
+        self.CollectionPublicPath = /public/MiamiCollection001
+        self.CollectionStoragePath = /storage/MiamiCollection001
+        self.AdminStoragePath = /storage/MiamiAdmin001
 
         // Put a new Collection in storage
         self.account.save<@Collection>(<- create Collection(), to: self.CollectionStoragePath)
 
         // Create a public capability for the Collection
-        self.account.link<&{DieselCollectionPublic}>(self.CollectionPublicPath, target: self.CollectionStoragePath)
+        self.account.link<&{MiamiCollectionPublic}>(self.CollectionPublicPath, target: self.CollectionStoragePath)
 
         // Put the Minter in storage
         self.account.save<@Admin>(<- create Admin(), to: self.AdminStoragePath)
@@ -452,3 +463,4 @@ pub contract DieselNFT: NonFungibleToken {
         emit ContractInitialized()
     }
 }
+ 

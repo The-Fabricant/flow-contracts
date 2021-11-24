@@ -29,7 +29,8 @@
 				}	
 		},
 		"TheFabricantMysteryBox_FF1": "./cadence/contracts/TheFabricantMysteryBox_FF1.cdc",
-		"DieselNFT": "./cadence/contracts/DieselNFT.cdc"
+		"DieselNFT": "./cadence/contracts/DieselNFT.cdc",
+		"MiamiNFT": "./cadence/contracts/MiamiNFT.cdc"
   	},
 	"networks": {
 		"emulator": "127.0.0.1:3569",
@@ -49,11 +50,11 @@
 	"deployments": {
 		"testnet": {
       		"testnet-account": 
-				["DieselNFT"]
+				["DieselNFT", "MiamiNFT"]
     	},
 		"emulator": {
 			"emulator-account": 
-				["NonFungibleToken", "DieselNFT"]
+				["NonFungibleToken", "DieselNFT", "MiamiNFT"]
    		 }
 	}
 }
