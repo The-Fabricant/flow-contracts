@@ -1,7 +1,6 @@
 import DieselNFT from "../../contracts/DieselNFT.cdc"
 
 pub struct DieselDetails {
-  pub let id: UInt64
   pub let serialNumber: UInt32
   pub let numberMintedPerDieselDataID: UInt32
   pub let dieselDataID: UInt32
@@ -10,7 +9,6 @@ pub struct DieselDetails {
   pub let mainVideo: String
 
   init(
-    id: UInt64,
     serialNumber: UInt32,
     numberMintedPerDieselDataID: UInt32,
     dieselDataID: UInt32,
@@ -19,7 +17,6 @@ pub struct DieselDetails {
     mainVideo: String
   )
   {
-    self.id = id
     self.serialNumber = serialNumber
     self.numberMintedPerDieselDataID = numberMintedPerDieselDataID
     self.dieselDataID = dieselDataID

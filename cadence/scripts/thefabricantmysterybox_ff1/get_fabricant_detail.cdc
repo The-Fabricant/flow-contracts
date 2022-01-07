@@ -1,21 +1,18 @@
 import TheFabricantMysteryBox_FF1 from "../../contracts/TheFabricantMysteryBox_FF1.cdc"
 
 pub struct FabricantDetails {
-  pub let id: UInt64
   pub let serialNumber: UInt32
   pub let numberMintedPerFabricantDataID: UInt32
   pub let fabricantDataID: UInt32
   pub let mainImage: String
 
   init(
-    id: UInt64,
     serialNumber: UInt32,
     numberMintedPerFabricantDataID: UInt32,
     fabricantDataID: UInt32,
     mainImage: String
   )
   {
-    self.id = id
     self.serialNumber = serialNumber
     self.numberMintedPerFabricantDataID = numberMintedPerFabricantDataID
     self.fabricantDataID = fabricantDataID

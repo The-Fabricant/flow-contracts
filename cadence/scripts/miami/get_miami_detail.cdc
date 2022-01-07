@@ -1,7 +1,6 @@
 import MiamiNFT from "../../contracts/MiamiNFT.cdc"
 
 pub struct MiamiDetails {
-  pub let id: UInt64
   pub let serialNumber: UInt32
   pub let numberMintedPerMiamiDataID: UInt32
   pub let miamiDataID: UInt32
@@ -10,7 +9,6 @@ pub struct MiamiDetails {
   pub let mainVideo: String
 
   init(
-    id: UInt64,
     serialNumber: UInt32,
     numberMintedPerMiamiDataID: UInt32,
     miamiDataID: UInt32,
@@ -19,7 +17,6 @@ pub struct MiamiDetails {
     mainVideo: String
   )
   {
-    self.id = id
     self.serialNumber = serialNumber
     self.numberMintedPerMiamiDataID = numberMintedPerMiamiDataID
     self.miamiDataID = miamiDataID
