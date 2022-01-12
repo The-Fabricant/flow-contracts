@@ -1,15 +1,38 @@
-#SCRIPTS
-flow scripts execute ./cadence/scripts/is_account_initialized.cdc --arg Address:0xf8d6e0586b0a20c7
-flow transactions send ./cadence/transactions/initialize_account.cdc --signer emulator-account
+##TRANSACTIONS
+
+#flowfest
+flow transactions send ./cadence/transactions/initialize_account_flowfest.cdc --signer emulator-account
 
 #diesel
 flow transactions send ./cadence/transactions/initialize_account_diesel.cdc --signer emulator-account
 flow transactions send ./cadence/transactions/diesel/retire_diesel_data.cdc --signer emulator-account 1
 
+#miami
+flow transactions send ./cadence/transactions/initialize_account_miami.cdc --signer emulator-account
+
+#flowfestaccess
+flow transactions send ./cadence/transactions/flowfestaccess/give_access.cdc --signer emulator-account --gas-limit 9999 0xf8d6e0586b0a20c7
+
+
+##SCRIPTS
+
+#flowfest
+flow scripts execute ./cadence/scripts/is_account_initialized_flowfest.cdc --arg Address:0xf8d6e0586b0a20c7
+flow scripts execute ./cadence/scripts/thefabricantmysterybox_ff1/get_fabricant_collection_length.cdc --arg Address:0xf8d6e0586b0a20c7
+
+#diesel
+flow scripts execute ./cadence/scripts/is_account_initialized_diesel.cdc --arg Address:0xf8d6e0586b0a20c7
+flow scripts execute ./cadence/scripts/diesel/get_diesel_collection_length.cdc --arg Address:0xf8d6e0586b0a20c7
 flow scripts execute ./cadence/scripts/diesel/get_diesel_collection_length.cdc --arg Address:0xf8d6e0586b0a20c7 
 flow scripts execute ./cadence/scripts/diesel/get_diesel_detail.cdc --arg Address:0xf8d6e0586b0a20c7 --arg UInt64:1
 flow scripts execute ./cadence/scripts/diesel/get_diesel_datas.cdc
 flow scripts execute ./cadence/scripts/diesel/get_diesel_royalty_percentage.cdc
+
+#miami
+flow scripts execute ./cadence/scripts/is_account_initialized_miami.cdc --arg Address:0xf8d6e0586b0a20c7
+flow scripts execute ./cadence/scripts/miami/get_miami_collection_length.cdc --arg Address:0xf8d6e0586b0a20c7
+
+#flowfestaccess
 flow scripts execute ./cadence/scripts/flowfestaccess/account_has_flow_fest.cdc --arg Address:0xf8d6e0586b0a20c7
 flow scripts execute ./cadence/scripts/flowfestaccess/is_account_verified.cdc --arg Address:0xf8d6e0586b0a20c7
 flow scripts execute ./cadence/scripts/flowfestaccess/get_accounts_verified.cdc

@@ -61,7 +61,7 @@
 	"deployments": {
 		"testnet": {
       		"testnet-account": 
-				["TheFabricantMysteryBox_FF1", "DieselNFT", "MiamiNFT"]
+				["TheFabricantMysteryBox_FF1", "DieselNFT", "MiamiNFT", "FlowFestAccess"]
     	},
 		"emulator": {
 			"emulator-account": 
