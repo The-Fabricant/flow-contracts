@@ -17,19 +17,23 @@ pub contract FlowFestAccess {
             "account already has access"
         }
         let collection = collectionCap.borrow()!
+        // get the ids of the flowfest nfts that the collection contains
         let ids = collection.getIDs()
+        // check that collection actually contains nft with that id
         if ids.contains(id) {
+            //verify account and store in dictionary
             FlowFestAccess.accountsVerified[collectionCap.address] = id
         }
         emit AccountVerified(address: collectionCap.address, id: id)
     }
 
-    // get dictionary of accountsVerified
+    // get dictionary of accounts that are verified and the id
+    // of the flowfest nft that it used
     pub fun getAccountsVerified(): {Address: UInt64} {
         return FlowFestAccess.accountsVerified
     }
 
-    // check if account is already in accountsVerified dict
+    // check if account is already verified
     pub fun isAccountVerified(address: Address): Bool {
         for key in FlowFestAccess.accountsVerified.keys {
             if key == address {
@@ -38,6 +42,7 @@ pub contract FlowFestAccess {
         }
         return false
     }
+    
     // -----------------------------------------------------------------------
     // initialization function
     // -----------------------------------------------------------------------

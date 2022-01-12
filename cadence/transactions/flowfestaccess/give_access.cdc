@@ -13,6 +13,7 @@ transaction() {
         for id in ids {
             if(!allIDs.contains(id)){
                 FlowFestAccess.giveAccess(id: id, collectionCap: collectionRef)
+                return 
             }
         }
     }
