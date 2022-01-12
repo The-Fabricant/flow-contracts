@@ -2,16 +2,12 @@ import FlowToken from "../contracts/FlowToken.cdc"
 import FungibleToken from "../contracts/FungibleToken.cdc"
 import MiamiNFT from "../contracts/MiamiNFT.cdc"
 
-pub fun hasMiamiNFT(_ address: Address): Bool {
-    return getAccount(address)
-        .getCapability<&{MiamiNFT.MiamiCollectionPublic}>(MiamiNFT.CollectionPublicPath)
-        .check()
-}
-
-transaction {
+transaction() {
 
     prepare(acct: AuthAccount) {
-        if !hasMiamiNFT(acct.address) {
+        if !acct
+        .getCapability<&{MiamiNFT.MiamiCollectionPublic}>(MiamiNFT.CollectionPublicPath)
+        .check(){
         if acct.borrow<&MiamiNFT.Collection>(from: MiamiNFT.CollectionStoragePath) == nil {
             let collection <- MiamiNFT.createEmptyCollection() as! @MiamiNFT.Collection
             // Put the new Collection in storage

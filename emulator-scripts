@@ -10,4 +10,6 @@ flow scripts execute ./cadence/scripts/diesel/get_diesel_collection_length.cdc -
 flow scripts execute ./cadence/scripts/diesel/get_diesel_detail.cdc --arg Address:0xf8d6e0586b0a20c7 --arg UInt64:1
 flow scripts execute ./cadence/scripts/diesel/get_diesel_datas.cdc
 flow scripts execute ./cadence/scripts/diesel/get_diesel_royalty_percentage.cdc
-
+flow scripts execute ./cadence/scripts/flowfestaccess/account_has_flow_fest.cdc --arg Address:0xf8d6e0586b0a20c7
+flow scripts execute ./cadence/scripts/flowfestaccess/is_account_verified.cdc --arg Address:0xf8d6e0586b0a20c7
+flow scripts execute ./cadence/scripts/flowfestaccess/get_accounts_verified.cdc

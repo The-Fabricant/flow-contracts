@@ -29,8 +29,19 @@
 				}	
 		},
 		"TheFabricantMysteryBox_FF1": "./cadence/contracts/TheFabricantMysteryBox_FF1.cdc",
-		"DieselNFT": "./cadence/contracts/DieselNFT.cdc",
-		"MiamiNFT": "./cadence/contracts/MiamiNFT.cdc"
+		"DieselNFT": {
+			"source": "./cadence/contracts/DieselNFT.cdc",
+			"aliases": {
+				"mainnet": "0x497153c597783bc3"
+			}	
+		},
+		"MiamiNFT": {
+			"source": "./cadence/contracts/MiamiNFT.cdc",
+			"aliases": {
+				"mainnet": "0x429a19abea586a3e"
+			}	
+		},
+		"FlowFestAccess": "./cadence/contracts/FlowFestAccess.cdc"
   	},
 	"networks": {
 		"emulator": "127.0.0.1:3569",
@@ -43,8 +54,8 @@
 			"key": "0e453065a10d923ac3fe773b31ff095f2ab685742a2097ba9ffffa08e45e3642"
 		},
 		"testnet-account": {
-			"address": "0xbc9d692e2617a96e",
-			"keys": "4986629e9ce5d6f8d0b638ec6dc0582c3e3fef10c41677012204201c41dbdb41"
+			"address": "0x54bb03412a4657b1",
+			"keys": "dc823e300ec10bf25cc841339d34e6f390dce7fefd2006a7c4a119d37717d921"
    		}
 	},
 	"deployments": {
@@ -54,7 +65,7 @@
     	},
 		"emulator": {
 			"emulator-account": 
-				["NonFungibleToken", "TheFabricantMysteryBox_FF1", "DieselNFT", "MiamiNFT"]
+				["NonFungibleToken", "TheFabricantMysteryBox_FF1", "DieselNFT", "MiamiNFT", "FlowFestAccess"]
    		 }
 	}
 }

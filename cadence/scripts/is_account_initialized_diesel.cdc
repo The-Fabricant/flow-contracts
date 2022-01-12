@@ -8,9 +8,9 @@
       .check()
   }
 
-
   pub fun main(address: Address): {String: Bool} {
     let ret: {String: Bool} = {}
     ret["HasDiesel"] = hasDieselNFT(address)
+
     return ret
   }

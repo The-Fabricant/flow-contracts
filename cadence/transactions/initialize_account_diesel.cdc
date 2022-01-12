@@ -2,16 +2,12 @@ import FlowToken from "../contracts/FlowToken.cdc"
 import FungibleToken from "../contracts/FungibleToken.cdc"
 import DieselNFT from "../contracts/DieselNFT.cdc"
 
-pub fun hasDieselNFT(_ address: Address): Bool {
-    return getAccount(address)
-        .getCapability<&{DieselNFT.DieselCollectionPublic}>(DieselNFT.CollectionPublicPath)
-        .check()
-}
-
 transaction() {
 
     prepare(acct: AuthAccount) {
-        if !hasDieselNFT(acct.address) {
+        if !acct
+        .getCapability<&{DieselNFT.DieselCollectionPublic}>(DieselNFT.CollectionPublicPath)
+        .check() {
         if acct.borrow<&DieselNFT.Collection>(from: DieselNFT.CollectionStoragePath) == nil {
             let collection <- DieselNFT.createEmptyCollection() as! @DieselNFT.Collection
             // Put the new Collection in storage
