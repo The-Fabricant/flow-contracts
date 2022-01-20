@@ -14,4 +14,4 @@ flow transactions send ./cadence/transactions/diesel/batch_mint_diesel.cdc --sig
 
 # Create miami data and batch mint
 flow transactions send ./cadence/transactions/initialize_account_miami.cdc --signer emulator-account 
-flow transactions send ./cadence/transactions/miami/create_miami_data.cdc --signer emulator-account flow transactions send ./cadence/transactions/miami/create_miami_data.cdc --network testnet --signer testnet-account "Transparency Hat" "Fighting for transparency in this newly emerging market, this hat will bring you visibility and invisibility at the same time." "https://leela.mypinata.cloud/ipfs/QmRExiftX6q5VMRt1MsM4ecKTG5nYVq6a7EnPTGLg4zfP6" "1" 0x716db717f9240d8a
+flow transactions send ./cadence/transactions/miami/create_miami_data.cdc --signer emulator-account flow transactions send ./cadence/transactions/miami/create_miami_data.cdc --network testnet --signer testnet-account "Transparency Hat" "Fighting for transparency in this newly emerging market, this hat will bring you visibility and invisibility at the same time." "https://leela.mypinata.cloud/ipfs/QmRExiftX6q5VMRt1MsM4ecKTG5nYVq6a7EnPTGLg4zfP6" "1" 0x2a37a78609bba037

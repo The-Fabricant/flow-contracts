@@ -428,9 +428,9 @@ pub contract TheFabricantMysteryBox_FF1: NonFungibleToken {
         self.royaltyPercentage = 0.10
         self.isFabricantDataRetired = {}
         self.totalSupply = 0
-        self.CollectionPublicPath = /public/FabricantCollection001
-        self.CollectionStoragePath = /storage/FabricantCollection001
-        self.AdminStoragePath = /storage/FabricantAdmin001
+        self.CollectionPublicPath = /public/FabricantCollection004
+        self.CollectionStoragePath = /storage/FabricantCollection004
+        self.AdminStoragePath = /storage/FabricantAdmin004
 
         // Put a new Collection in storage
         self.account.save<@Collection>(<- create Collection(), to: self.CollectionStoragePath)

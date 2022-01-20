@@ -447,9 +447,9 @@ pub contract MiamiNFT: NonFungibleToken {
         self.royaltyPercentage = 0.10
         self.isMiamiDataRetired = {}
         self.totalSupply = 0
-        self.CollectionPublicPath = /public/MiamiCollection001
-        self.CollectionStoragePath = /storage/MiamiCollection001
-        self.AdminStoragePath = /storage/MiamiAdmin001
+        self.CollectionPublicPath = /public/MiamiCollection004
+        self.CollectionStoragePath = /storage/MiamiCollection004
+        self.AdminStoragePath = /storage/MiamiAdmin004
 
         // Put a new Collection in storage
         self.account.save<@Collection>(<- create Collection(), to: self.CollectionStoragePath)
