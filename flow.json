@@ -54,14 +54,14 @@
 			"key": "0e453065a10d923ac3fe773b31ff095f2ab685742a2097ba9ffffa08e45e3642"
 		},
 		"testnet-account": {
-			"address": "0x54bb03412a4657b1",
-			"keys": "dc823e300ec10bf25cc841339d34e6f390dce7fefd2006a7c4a119d37717d921"
+			"address": "0x2a37a78609bba037",
+			"keys": "34088f9ea2ba6d5712512a0e6144dff61c2caa65a3dfcb3ec1d9312b69c7c336"
    		}
 	},
 	"deployments": {
 		"testnet": {
       		"testnet-account": 
-				["TheFabricantMysteryBox_FF1", "DieselNFT", "MiamiNFT"]
+				["TheFabricantMysteryBox_FF1", "DieselNFT", "MiamiNFT", "FlowFestAccess"]
     	},
 		"emulator": {
 			"emulator-account": 
