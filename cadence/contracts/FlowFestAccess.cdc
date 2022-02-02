@@ -1,3 +1,9 @@
+/*
+    Description: FlowFestAccess Contract
+   
+    This contract allows users to redeem their FlowFest NFTs to gain access to thefabricant.studio
+*/
+
 import NonFungibleToken from "./NonFungibleToken.cdc"
 import FungibleToken from "./FungibleToken.cdc"
 import TheFabricantMysteryBox_FF1 from "./TheFabricantMysteryBox_FF1.cdc"
@@ -51,4 +57,3 @@ pub contract FlowFestAccess {
         self.accountsVerified = {}
     }
 }
- 
