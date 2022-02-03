@@ -1,5 +1,6 @@
 import TheFabricantMysteryBox_FF1 from "../../contracts/TheFabricantMysteryBox_FF1.cdc"
 import FlowFestAccess from "../../contracts/FlowFestAccess.cdc"
+// This script checks whether they have a flowfest nft they can redeem
 
 pub struct FabricantDetails {
   pub let id: UInt64
@@ -7,7 +8,6 @@ pub struct FabricantDetails {
   pub let numberMintedPerFabricantDataID: UInt32
   pub let fabricantDataID: UInt32
   pub let mainImage: String
-
   init(
     id: UInt64,
     serialNumber: UInt32,
@@ -23,14 +23,10 @@ pub struct FabricantDetails {
     self.mainImage = mainImage
   }
 }
-
 pub fun main(account: Address): [FabricantDetails] {
-
     let acct = getAccount(account)
-
     let fabricantCollectionRef = acct.getCapability(TheFabricantMysteryBox_FF1.CollectionPublicPath)
                             .borrow<&{TheFabricantMysteryBox_FF1.FabricantCollectionPublic}>()!
-
     var ids = fabricantCollectionRef.getIDs();
     let redeemableIds: [UInt64] = []
     let allIDs = FlowFestAccess.getAccountsVerified().values

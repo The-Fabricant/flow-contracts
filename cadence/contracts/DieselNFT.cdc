@@ -436,9 +436,9 @@ pub contract DieselNFT: NonFungibleToken {
         self.royaltyPercentage = 0.10
         self.isDieselDataRetired = {}
         self.totalSupply = 0
-        self.CollectionPublicPath = /public/DieselCollection001
-        self.CollectionStoragePath = /storage/DieselCollection001
-        self.AdminStoragePath = /storage/DieselAdmin001
+        self.CollectionPublicPath = /public/DieselCollection004
+        self.CollectionStoragePath = /storage/DieselCollection004
+        self.AdminStoragePath = /storage/DieselAdmin004
 
         // Put a new Collection in storage
         self.account.save<@Collection>(<- create Collection(), to: self.CollectionStoragePath)

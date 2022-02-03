@@ -1,0 +1,41 @@
+##list of transactions and scripts for mainnet
+##TRANSACTIONS
+
+#flowfest
+flow transactions send ./cadence/transactions/initialize_account_flowfest.cdc --network mainnet --signer mainnet-account
+
+#diesel
+flow transactions send ./cadence/transactions/initialize_account_diesel.cdc --network mainnet --signer mainnet-account
+
+#miami
+flow transactions send ./cadence/transactions/initialize_account_miami.cdc --network mainnet --signer mainnet-account
+
+#flowfestaccess
+flow transactions send ./cadence/transactions/flowfestaccess/give_access.cdc --network mainnet --signer mainnet-account --gas-limit 9999 1
+
+
+##SCRIPTS
+
+#flowfest
+flow scripts execute ./cadence/scripts/is_account_initialized_flowfest.cdc --network mainnet --arg Address:0x2a37a78609bba037
+flow scripts execute ./cadence/scripts/thefabricantmysterybox_ff1/get_fabricant_collection_length.cdc --network mainnet --arg Address:0x2a37a78609bba037
+flow scripts execute ./cadence/scripts/thefabricantmysterybox_ff1/get_fabricant_redeemable_collection_detail.cdc --network mainnet --arg Address:0x2a37a78609bba037 
+
+#diesel
+flow scripts execute ./cadence/scripts/is_account_initialized_diesel.cdc --network mainnet --arg Address:0x2a37a78609bba037
+flow scripts execute ./cadence/scripts/diesel/get_diesel_collection_length.cdc --network mainnet --arg Address:0x2a37a78609bba037
+flow scripts execute ./cadence/scripts/diesel/get_diesel_collection_length.cdc --network mainnet --arg Address:0x2a37a78609bba037 
+flow scripts execute ./cadence/scripts/diesel/get_diesel_collection_detail.cdc --network mainnet --arg Address:0x2a37a78609bba037
+flow scripts execute ./cadence/scripts/diesel/get_diesel_detail.cdc --network mainnet --arg Address:0x2a37a78609bba037 --arg UInt64:1
+flow scripts execute ./cadence/scripts/diesel/get_diesel_datas.cdc --network mainnet
+flow scripts execute ./cadence/scripts/diesel/get_diesel_royalty_percentage.cdc --network mainnet
+
+#miami
+flow scripts execute ./cadence/scripts/is_account_initialized_miami.cdc --network mainnet --arg Address:0x2a37a78609bba037
+flow scripts execute ./cadence/scripts/miami/get_miami_collection_length.cdc --network mainnet --arg Address:0x2a37a78609bba037
+
+#flowfestaccess
+flow scripts execute ./cadence/scripts/flowfestaccess/account_has_ff_nft.cdc --network mainnet --arg Address:0x2a37a78609bba037
+flow scripts execute ./cadence/scripts/flowfestaccess/is_account_verified.cdc --network mainnet --arg Address:0x2a37a78609bba037
+flow scripts execute ./cadence/scripts/flowfestaccess/get_accounts_verified.cdc --network mainnet
+flow scripts execute ./cadence/scripts/flowfestaccess/get_accounts_verified.cdc --network mainnet --arg Address:0x2a37a78609bba037
