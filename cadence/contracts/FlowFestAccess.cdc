@@ -1,3 +1,9 @@
+/*
+    Description: FlowFestAccess Contract
+   
+    This contract allows users to redeem their FlowFest NFTs to gain access to thefabricant.studio
+*/
+
 import NonFungibleToken from "./NonFungibleToken.cdc"
 import FungibleToken from "./FungibleToken.cdc"
 import TheFabricantMysteryBox_FF1 from "./TheFabricantMysteryBox_FF1.cdc"
@@ -15,6 +21,8 @@ pub contract FlowFestAccess {
         pre {
             FlowFestAccess.isAccountVerified(address: collectionCap.address) == false:
             "account already has access"
+            !FlowFestAccess.accountsVerified.values.contains(id):
+            "id is already used"
         }
         let collection = collectionCap.borrow()!
         // get the ids of the flowfest nfts that the collection contains
@@ -23,8 +31,11 @@ pub contract FlowFestAccess {
         if ids.contains(id) {
             //verify account and store in dictionary
             FlowFestAccess.accountsVerified[collectionCap.address] = id
+            emit AccountVerified(address: collectionCap.address, id: id)
+        } else {
+            panic("user does not have nft with this id")
         }
-        emit AccountVerified(address: collectionCap.address, id: id)
+
     }
 
     // get dictionary of accounts that are verified and the id
@@ -51,4 +62,3 @@ pub contract FlowFestAccess {
         self.accountsVerified = {}
     }
 }
- 

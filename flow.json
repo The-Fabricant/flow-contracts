@@ -17,31 +17,45 @@
 		"FungibleToken": {
 			"source": "./cadence/contracts/FungibleToken.cdc",
 			"aliases": {
-				"emulator": "0xee82856bf20e2aa6",
+				"mainnet": "0xf233dcee88fe0abe",
 				"testnet": "0x9a0766d93b6608b7",
-				"mainnet": "0xf233dcee88fe0abe"
+				"emulator": "0xee82856bf20e2aa6"	
 			}
 		},
 		"NonFungibleToken": {
-				"source": "./cadence/contracts/NonFungibleToken.cdc",
-				"aliases": {
-					"testnet": "0x631e88ae7f1d7c20"
-				}	
+			"source": "./cadence/contracts/NonFungibleToken.cdc",
+			"aliases": {
+				"mainnet": "0x1d7e57aa55817448",
+				"testnet": "0x631e88ae7f1d7c20"
+			}	
 		},
-		"TheFabricantMysteryBox_FF1": "./cadence/contracts/TheFabricantMysteryBox_FF1.cdc",
+		"TheFabricantMysteryBox_FF1": {
+			"source": "./cadence/contracts/TheFabricantMysteryBox_FF1.cdc",
+			"aliases": {
+				"mainnet": "0xa0cbe021821c0965",
+				"testnet": "0x2a37a78609bba037"
+			}	
+		},
 		"DieselNFT": {
 			"source": "./cadence/contracts/DieselNFT.cdc",
 			"aliases": {
-				"mainnet": "0x497153c597783bc3"
+				"mainnet": "0x497153c597783bc3",
+				"testnet": "0x2a37a78609bba037"
 			}	
 		},
 		"MiamiNFT": {
 			"source": "./cadence/contracts/MiamiNFT.cdc",
 			"aliases": {
-				"mainnet": "0x429a19abea586a3e"
+				"mainnet": "0x429a19abea586a3e",
+				"testnet": "0x2a37a78609bba037"
 			}	
 		},
-		"FlowFestAccess": "./cadence/contracts/FlowFestAccess.cdc"
+		"FlowFestAccess": {
+			"source": "./cadence/contracts/FlowFestAccess.cdc",
+			"aliases": {
+				"testnet": "0x2a37a78609bba037"
+			}	
+		}
   	},
 	"networks": {
 		"emulator": "127.0.0.1:3569",

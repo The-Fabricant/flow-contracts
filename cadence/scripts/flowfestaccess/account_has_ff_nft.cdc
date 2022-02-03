@@ -1,6 +1,6 @@
 import TheFabricantMysteryBox_FF1 from "../../contracts/TheFabricantMysteryBox_FF1.cdc"
 import FlowFestAccess from "../../contracts/FlowFestAccess.cdc"
-// This script returns the size of an account's Fabricant collection.
+// This script checks whether they have a flowfest nft they can redeem
 
 pub fun main(address: Address): Bool {
     let account = getAccount(address)
